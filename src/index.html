@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Inspector Morse</title>
+  </head>
+  <body>
+    <form id="morse-form" action="#">
+      <label for="morse">Message:</label>
+      <input
+        id="morse"
+        name="morse"
+        type="text"
+        placeholder="dash off a note..."
+      />
+      <button>click</button>
+    </form>
+    <script type="module">
+      import { toMorse } from "./morse.js";
+      import { playAudio } from "./playa.js";
+
+      const onSubmit = event => {
+        event.preventDefault();
+        const data = new FormData(event.target);
+        playAudio(toMorse(data.get("morse")));
+      };
+
+      const form = document.querySelector("#morse-form");
+      form.addEventListener("submit", onSubmit);
+    </script>
+  </body>
+</html>
