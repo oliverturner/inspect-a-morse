@@ -5,29 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Inspector Morse</title>
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <form id="morse-form" action="#">
-      <label for="morse">Message:</label>
-      <input
-        id="morse"
-        name="morse"
-        type="text"
-        placeholder="dash off a note..."
-      />
-      <button>click</button>
+    <form id="morse-form" class="morsel" action="#">
+      <ul class="unlist fields">
+        <li class="field">
+          <label for="morse">Message:</label>
+          <input
+            id="morse"
+            name="morse"
+            type="text"
+            placeholder="dot dot dot..."
+            value="sos"
+          />
+        </li>
+        <li class="field">
+          <label for="rate">Rate:</label>
+          <div class="row">
+            <input
+              id="rate"
+              name="rate"
+              type="range"
+              min="0.5"
+              max="2"
+              value="1"
+              step="0.1"
+            />
+            <output name="morse-rate"></output>
+          </div>
+        </li>
+        <li class="field">
+          <button>Play</button>
+        </li>
+      </ul>
     </form>
     <script type="module">
       import { toMorse } from "./morse.js";
       import { playAudio } from "./playa.js";
 
+      const form = document.querySelector("#morse-form");
+      const output = form.querySelector("[name=morse-rate]");
+
+      const onInput = evt => {
+        output.value = parseFloat(evt.target.value, 10);
+      };
+
       const onSubmit = event => {
         event.preventDefault();
         const data = new FormData(event.target);
-        playAudio(toMorse(data.get("morse")));
+        playAudio(toMorse(data.get("morse")), data.get("rate"));
       };
 
-      const form = document.querySelector("#morse-form");
+      form.addEventListener("input", onInput);
       form.addEventListener("submit", onSubmit);
     </script>
   </body>

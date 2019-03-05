@@ -1,0 +1,37 @@
+body {
+  display: grid;
+  place-content: center;
+
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+input, button {
+  font: inherit;
+}
+
+.unlist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.morsel {
+  display: grid;
+  place-content: center;
+}
+
+.fields {
+  display: grid;
+  gap: 20px;
+}
+
+.field {
+  display: grid;
+  gap: 5px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
